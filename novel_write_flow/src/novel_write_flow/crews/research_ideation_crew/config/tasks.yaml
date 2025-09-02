@@ -1,0 +1,66 @@
+concept_development:
+  description: >
+    Expand the initial story idea into a full concept document containing the central theme, major conflict, primary narrative question, unique tone, proposed subplots, and a short synopsis. Deliver a “concept bible” to align all future development.
+  expected_output: concept_development.md
+  agents: [story_concept_developer]
+  dependencies: []
+  context: []
+  result_type: markdown
+  language: en
+  llm: gpt-4
+  verbose: true
+
+genre_market_analysis:
+  description: >
+    Analyze the concept bible and determine optimal genres, subgenres, market trends, conventions, comparable titles, and audience expectations. Summarize competitive hooks and positioning options.
+  expected_output: genre_research.md
+  agents: [genre_research_specialist]
+  dependencies: [concept_development]
+  context: [concept_development]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+
+character_creation:
+  description: >
+    Develop detailed profiles for all major and supporting characters, including their biographies, motivations, desires, core flaws, relationships, arcs, voice notes, and unique identifiers. Generate a character bible ready for the writing crew.
+  expected_output: character_profiles.md
+  agents: [character_architect]
+  dependencies: [concept_development, genre_market_analysis]
+  context: [concept_development, genre_market_analysis]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+
+world_building:
+  description: >
+    Create a comprehensive world-building guide that describes the setting, history, geography, cultures, institutions, social orders, technological/magical rules, and points of interest vital to the story.
+  expected_output: world_building.md
+  agents: [world_building_specialist]
+  dependencies: [concept_development, genre_market_analysis]
+  context: [concept_development, genre_market_analysis]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+
+plot_outlining:
+  description: >
+    Draft a complete chapter-by-chapter and act-by-act outline including all major beats, turning points, reversals, emotional arcs, and integration of subplots. Provide short summaries and hooks for every chapter and act.
+  expected_output: plot_outline.md
+  agents: [plot_structure_architect]
+  dependencies: [concept_development, character_creation, world_building]
+  context: [concept_development, character_creation, world_building]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+
+market_positioning:
+  description: >
+    Deliver in-depth audience and market research including target reader profiles, competitive and comparable titles, commercial hooks, category and subcategory recommendations, pricing strategies, and promotional ideas.
+  expected_output: market_analysis.md
+  agents: [publishing_market_analyst]
+  dependencies: [concept_development, genre_market_analysis]
+  context: [concept_development, genre_market_analysis]
+  result_type: markdown
+  language: en
+  llm: gpt-4

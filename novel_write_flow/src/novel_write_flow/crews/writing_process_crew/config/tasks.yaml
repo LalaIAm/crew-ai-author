@@ -1,0 +1,55 @@
+chapter_drafting:
+  description: >
+    Write the first draft of the manuscript, chapter by chapter, based on the provided outline, character bible, and world guide. Each chapter should integrate key beats, character growth, world details, and maintain genre-appropriate pacing, tone, and voice.
+  expected_output: first_draft_manuscript.md
+  agents: [chapter_writer]
+  dependencies: [plot_outlining, character_creation, world_building]
+  context: [plot_outline, character_profiles, world_building]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+  verbose: true
+
+dialogue_enhancement:
+  description: >
+    Review all major scenes and chapters, revising dialogue for authenticity, voice consistency, emotional resonance, and plot advancement. Add distinct voice notes to the character bible.
+  expected_output: dialogue_enhanced_manuscript.md
+  agents: [dialogue_specialist]
+  dependencies: [chapter_drafting]
+  context: [first_draft_manuscript, character_profiles]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+
+scene_optimization:
+  description: >
+    Analyze and refine scene structure and flow; clarify goals, conflict, escalation, and payoff; maximize emotional impact and transitions between scenes. Ensure each scene serves the overall narrative and character arcs.
+  expected_output: scene_optimized_manuscript.md
+  agents: [scene_architecture_specialist]
+  dependencies: [dialogue_enhancement]
+  context: [dialogue_enhanced_manuscript]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+
+pacing_adjustment:
+  description: >
+    Review and adjust pacing across chapters, interleaving action and reflection, managing tension and release, and fixing rushed or slow sections. Ensure reader engagement and rhythm are optimal from beginning to end.
+  expected_output: pacing_adjusted_manuscript.md
+  agents: [narrative_pacing_specialist]
+  dependencies: [scene_optimization]
+  context: [scene_optimized_manuscript]
+  result_type: markdown
+  language: en
+  llm: gpt-4
+
+consistency_review:
+  description: >
+    Perform a comprehensive continuity check across the draft, flagging and correcting inconsistencies in character, world rules, timeline, plot logic, or style. Deliver corrections and a summary report with recommendations.
+  expected_output: consistency_checked_manuscript.md
+  agents: [story_consistency_guardian]
+  dependencies: [pacing_adjustment]
+  context: [pacing_adjusted_manuscript, character_profiles, world_building]
+  result_type: markdown
+  language: en
+  llm: gpt-4
