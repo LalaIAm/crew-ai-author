@@ -1,66 +1,57 @@
-concept_development:
+genre_analysis:
   description: >
-    Expand the initial story idea into a full concept document containing the central theme, major conflict, primary narrative question, unique tone, proposed subplots, and a short synopsis. Deliver a “concept bible” to align all future development.
-  expected_output: concept_development.md
-  agents: [story_concept_developer]
-  dependencies: []
-  context: []
-  result_type: markdown
-  language: en
-  llm: gpt-4
-  verbose: true
+    Deeply analyze the concept for genre alignment, examining genre-defining tropes, emerging trends, and successful comparable works. Recommend genre, subgenre, conventions, and audience targeting angles for high market impact.
+  expected_output: >
+    A genre report detailing primary genre selection, rising conventions, key plot/cast elements, audience trends, and comp title comparisons.
+  agent: genre_analyst
+  output_file: ideation/genre_report.md
+  markdown: true 
+  create_directory: true 
 
-genre_market_analysis:
+plot_structuring:
   description: >
-    Analyze the concept bible and determine optimal genres, subgenres, market trends, conventions, comparable titles, and audience expectations. Summarize competitive hooks and positioning options.
-  expected_output: genre_research.md
-  agents: [genre_research_specialist]
-  dependencies: [concept_development]
-  context: [concept_development]
-  result_type: markdown
-  language: en
-  llm: gpt-4
+    Build a comprehensive story outline using proven frameworks, mapping acts, chapters, and story beats. Integrate protagonist goals, reversals, midpoint shifts, climaxes, and resolve subplots with strong pacing and emotional payoff.
+  expected_output: >
+    A plot outline that details act-by-act and chapter-by-chapter breakdowns, lists major and minor beats, and highlights points of tension.
+  agent: plot_architect
+  context:
+    - genre_analysis
+  output_file: ideation/plot_outline.md
+  markdown: true
 
-character_creation:
+character_design:
   description: >
-    Develop detailed profiles for all major and supporting characters, including their biographies, motivations, desires, core flaws, relationships, arcs, voice notes, and unique identifiers. Generate a character bible ready for the writing crew.
-  expected_output: character_profiles.md
-  agents: [character_architect]
-  dependencies: [concept_development, genre_market_analysis]
-  context: [concept_development, genre_market_analysis]
-  result_type: markdown
-  language: en
-  llm: gpt-4
+    Create multidimensional characters with authentic emotional core, complex motivations, and compelling arcs. Include detailed bios, transformation journeys, voice notes, and character relationships.
+  expected_output: >
+    A character bible featuring complete backgrounds, main/secondary motivations, strengths/weaknesses, arc summaries, and key relationship maps.
+  agent: character_designer
+  context:
+    - genre_analysis
+    - plot_structuring
+  output_file: ideation/character_bible.md
+  markdown: true
 
 world_building:
   description: >
-    Create a comprehensive world-building guide that describes the setting, history, geography, cultures, institutions, social orders, technological/magical rules, and points of interest vital to the story.
-  expected_output: world_building.md
-  agents: [world_building_specialist]
-  dependencies: [concept_development, genre_market_analysis]
-  context: [concept_development, genre_market_analysis]
-  result_type: markdown
-  language: en
-  llm: gpt-4
+    Design an immersive world aligned with the story’s genre and themes. Detail geography, politics, cultures, lore, technologies, and social orders that provide realism and narrative potential.
+  expected_output: >
+    A world-building dossier outlining major settings, cultures, systems, technologies/magic, environment, and relevant history.
+  agent: world_builder
+  context:
+    - genre_analysis
+    - plot_structuring
+  output_file: ideation/world_guide.md
+  markdown: true
 
-plot_outlining:
+story_research:
   description: >
-    Draft a complete chapter-by-chapter and act-by-act outline including all major beats, turning points, reversals, emotional arcs, and integration of subplots. Provide short summaries and hooks for every chapter and act.
-  expected_output: plot_outline.md
-  agents: [plot_structure_architect]
-  dependencies: [concept_development, character_creation, world_building]
-  context: [concept_development, character_creation, world_building]
-  result_type: markdown
-  language: en
-  llm: gpt-4
-
-market_positioning:
-  description: >
-    Deliver in-depth audience and market research including target reader profiles, competitive and comparable titles, commercial hooks, category and subcategory recommendations, pricing strategies, and promotional ideas.
-  expected_output: market_analysis.md
-  agents: [publishing_market_analyst]
-  dependencies: [concept_development, genre_market_analysis]
-  context: [concept_development, genre_market_analysis]
-  result_type: markdown
-  language: en
-  llm: gpt-4
+    Provide in-depth thematic and factual research to ground the story. Supply relevant history, science, cultural practices, or legal background for plot or setting, and flag areas needing further detail.
+  expected_output: >
+    A curated research file with relevant summaries, citations, annotated facts, and notes on potential story risks or opportunities.
+  agent: subject_matter_researcher
+  context:
+    - genre_analysis
+    - plot_structuring
+    - world_building
+  output_file: ideation/story_research.md
+  markdown: true

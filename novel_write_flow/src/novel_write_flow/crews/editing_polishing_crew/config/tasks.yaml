@@ -1,17 +1,45 @@
-research_task:
+copy_editing:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
+    Scrutinize the manuscript line by line for grammar, spelling, punctuation, and syntax errors. Resolve mechanical issues while retaining style, voice, and clarity.
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    A copy-edited version of the manuscript that meets professional standards for technical correctness.
+  agent: copy_editor
+  context:
+  output_file: edit/copy_edited_ms.md
+  markdown: true
+  create_directory: true
 
-reporting_task:
+line_editing:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Refine and polish prose for smooth flow, readability, narrative rhythm, and emotive impact. Rephrase awkward passages, ensure consistency in voice and pace, and elevate literary quality.
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A line-edited manuscript version where every sentence, paragraph, and section flows beautifully and supports reader immersion.
+  agent: line_editor
+  context:
+    - copy_editing
+  output_file: edit/line_edited_ms.md
+  markdown: true
+
+beta_reader_feedback:
+  description: >
+    Simulate diverse beta reader reactions to the manuscript; generate audience feedback on pacing, clarity, emotional resonance, plot logic, and character credibility. Detect plot holes or confusing moments and summarize findings.
+  expected_output: >
+    An actionable feedback report identifying strengths, weaknesses, and audience-based recommendations for revision.
+  agent: beta_reader_analyst
+  context:
+    - line_editing
+  output_file: edit/beta_feedback_report.md
+  markdown: true
+
+final_fact_validation:
+  description: >
+    Re-verify all factual references, proper names, dates, and technical/cultural background for the final manuscript version. Document all sources and corrections made.
+  expected_output: >
+    A validated manuscript, accompanied by a fact-check log detailing all confirmed or corrected claims.
+  agent: final_research_validator
+  context:
+    - beta_reader_feedback
+    - on_demand_fact_check
+    - story_research
+  output_file: edit/fact_validated_ms.md
+  markdown: true

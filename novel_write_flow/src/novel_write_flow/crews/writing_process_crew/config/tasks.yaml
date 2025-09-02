@@ -1,55 +1,40 @@
-chapter_drafting:
+chapter_writing:
   description: >
-    Write the first draft of the manuscript, chapter by chapter, based on the provided outline, character bible, and world guide. Each chapter should integrate key beats, character growth, world details, and maintain genre-appropriate pacing, tone, and voice.
-  expected_output: first_draft_manuscript.md
-  agents: [chapter_writer]
-  dependencies: [plot_outlining, character_creation, world_building]
-  context: [plot_outline, character_profiles, world_building]
-  result_type: markdown
-  language: en
-  llm: gpt-4
-  verbose: true
+    Draft each chapter from the outline, seamlessly integrating character arcs, world details, and pacing cues. Produce clear, compelling scenes with strong hooks and effective scene/chapter transitions.
+  expected_output: >
+    A complete first-draft manuscript, with all chapters structured and written for further editing.
+  agent: chapter_writer
+  output_file: draft/first_draft_ms.md
+  markdown: true
 
-dialogue_enhancement:
+scene_enhancement:
   description: >
-    Review all major scenes and chapters, revising dialogue for authenticity, voice consistency, emotional resonance, and plot advancement. Add distinct voice notes to the character bible.
-  expected_output: dialogue_enhanced_manuscript.md
-  agents: [dialogue_specialist]
-  dependencies: [chapter_drafting]
-  context: [first_draft_manuscript, character_profiles]
-  result_type: markdown
-  language: en
-  llm: gpt-4
+    Review all scenes for emotional depth, vivid description, atmosphere, and dialogue authenticity. Raise the immersive quality and strengthen reader engagement for every scene block.
+  expected_output: >
+    An enhanced manuscript with improved dialogue, more resonant emotional beats, and deeper descriptive texture.
+  agent: scene_enhancer
+  context:
+    - chapter_writing
+  output_file: draft/enhanced_scenes.md
+  markdown: true
 
-scene_optimization:
+continuity_review:
   description: >
-    Analyze and refine scene structure and flow; clarify goals, conflict, escalation, and payoff; maximize emotional impact and transitions between scenes. Ensure each scene serves the overall narrative and character arcs.
-  expected_output: scene_optimized_manuscript.md
-  agents: [scene_architecture_specialist]
-  dependencies: [dialogue_enhancement]
-  context: [dialogue_enhanced_manuscript]
-  result_type: markdown
-  language: en
-  llm: gpt-4
+    Audit the manuscript for consistency of plot logic, tone, character evolution, and factual/world details. Cross-check all narrative elements and flag or fix any breaks or contradictions.
+  expected_output: >
+    A continuity report and corrected manuscript draft highlighting changes, areas of concern, and a summary of all resolved issues.
+  agent: continuity_supervisor
+  context:
+    - chapter_writing
+    - scene_enhancement
+  output_file: draft/continuity_report.md
+  markdown: true
 
-pacing_adjustment:
+on_demand_fact_check:
   description: >
-    Review and adjust pacing across chapters, interleaving action and reflection, managing tension and release, and fixing rushed or slow sections. Ensure reader engagement and rhythm are optimal from beginning to end.
-  expected_output: pacing_adjusted_manuscript.md
-  agents: [narrative_pacing_specialist]
-  dependencies: [scene_optimization]
-  context: [scene_optimized_manuscript]
-  result_type: markdown
-  language: en
-  llm: gpt-4
-
-consistency_review:
-  description: >
-    Perform a comprehensive continuity check across the draft, flagging and correcting inconsistencies in character, world rules, timeline, plot logic, or style. Deliver corrections and a summary report with recommendations.
-  expected_output: consistency_checked_manuscript.md
-  agents: [story_consistency_guardian]
-  dependencies: [pacing_adjustment]
-  context: [pacing_adjusted_manuscript, character_profiles, world_building]
-  result_type: markdown
-  language: en
-  llm: gpt-4
+    Answer specific fact or background questions from the writing team during draft and scene development; clarify technical, cultural, historical, or procedural details needed for manuscript authenticity.
+  expected_output: >
+    A live answer file with direct responses to writer queries, sources, brief explanations, and notes on open questions.
+  agent: writing_researcher
+  output_file: draft/team_facts.md
+  markdown: true
